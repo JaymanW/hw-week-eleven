@@ -16,8 +16,35 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req, res) => {
-    fs.readFile(path.join(__dirname, 'db/db.json'), 'utf8', (err, data) => {
-        res.json(JSON.parse(data));
+    fs.readFile(path.join(__dirname, 'db/db.json'), 'utf8', (err, info) => {
+        res.json(JSON.parse(info));
+    });
+});
+
+app.post('/api/notes', (req, res) => {
+    fs.readFile(path.join(__dirname, 'db/db.json'), 'utf8', (err, info) => {
+        const generateKey = () => {
+            let key = [];
+            for (let i = 0; i < 10; i++) {
+                key.push(Math.floor(Math.random()*9+1));
+            }
+            const result = Number(key.join(''));
+            return result;
+        }
+
+        const prevNotes = JSON.parse(info);
+        
+        // let note = req.body;
+        console.log(req.body);
+        // let uniqueKey = generateKey();
+        // console.log(uniqueKey);
+        // note.key = generateKey();
+
+        // prevNotes.push(note);
+        
+        fs.writeFile(path.join(__dirname, 'db/db.json'), JSON.stringify(prevNotes), (err, info) => {
+            // res.json(note);
+        })
     });
 });
 
