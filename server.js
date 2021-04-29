@@ -30,7 +30,7 @@ app.post('/api/notes', (req, res) => {
             for (let i = 0; i < 10; i++) {
                 key.push(Math.floor(Math.random()*9+1));
             }
-            const result = Number(key.join(''));
+            const result = key.join('');
             return result;
         }
 
@@ -47,6 +47,34 @@ app.post('/api/notes', (req, res) => {
         })
     });
 });
+
+app.delete("/api/notes/:key", (req, res) => {
+    // console.log("WORKINGg")
+    
+    fs.readFile(path.join(__dirname, 'db/db.json'), 'utf8', (err, info) => {
+        let totalNotes = JSON.parse(info);
+        console.log(totalNotes);
+        
+        // const noteToDelete = totalNotes.find((note) => {
+        //     return note.key === req.params.key;
+        // });
+
+        const findNoteToDelete = note => note.key === req.params.key;
+        const noteToDeleteIndex = totalNotes.findIndex(findNoteToDelete);
+
+        totalNotes.splice(noteToDeleteIndex, 1);
+
+        console.log(totalNotes);
+
+        // const noteSorter = (note) => note.id = req.params.key;
+        // const totalNotes.findIndex(noteSorter);
+        // console.log(totalNotes);
+        // totalNotes.splice(noteToDelete);
+        fs.writeFile(path.join(__dirname, 'db/db.json'), JSON.stringify(totalNotes), (err, data) => {
+            res.send();
+        })
+    })
+})
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
