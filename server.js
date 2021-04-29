@@ -9,6 +9,8 @@ const PORT = 8080;
 
 app.use(cors());
 app.use(express.static('public/'));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 // ROUTES
 app.get('/notes', (req, res) => {
@@ -32,18 +34,16 @@ app.post('/api/notes', (req, res) => {
             return result;
         }
 
-        const prevNotes = JSON.parse(info);
-        
-        // let note = req.body;
-        console.log(req.body);
-        // let uniqueKey = generateKey();
-        // console.log(uniqueKey);
-        // note.key = generateKey();
+        const totalNotes = JSON.parse(info);
+        // const note = req.body;
+        let note = req.body;
+        note.key = generateKey();
 
-        // prevNotes.push(note);
+        totalNotes.push(note);
+        console.log(totalNotes);
         
-        fs.writeFile(path.join(__dirname, 'db/db.json'), JSON.stringify(prevNotes), (err, info) => {
-            // res.json(note);
+        fs.writeFile(path.join(__dirname, 'db/db.json'), JSON.stringify(totalNotes), (err, info) => {
+            res.json(totalNotes);
         })
     });
 });
