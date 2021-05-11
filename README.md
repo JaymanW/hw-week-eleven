@@ -1,4 +1,4 @@
-[![Project Demo](./hwWeekElevenDemo.PNG)](https://youtu.be/xmz3_NK6uIs)
+[Project Demo](./hwWeekElevenDemo.PNG)
 
   # hw-week-eleven
   
