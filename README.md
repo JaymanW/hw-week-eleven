@@ -1,4 +1,4 @@
-[Project Demo](./hwWeekElevenDemo.PNG)
+![Project Demo (./hwWeekElevenDemo.PNG)]
 
   # hw-week-eleven
   
